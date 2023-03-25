@@ -2,20 +2,19 @@ import speech_recognition as sr
 import pyaudio
 
 # mic = None
-for i, mic_name in enumerate (sr.Microphone.list_microphone_names()):
-    mic = sr.Microphone(device_index=i, chunk_size=1024, sample_rate=48000)
-    print(f"The index is : {i} : {mic}  : {mic_name}")
-# mic = sr.Microphone(device_index = 2 , chunk_size = 1024 , sample_rate = 48000)
-# print(mic)
-pi_ear = sr.Recognizer()
+# for i, mic_name in enumerate (sr.Microphone.list_microphone_names()):
+#     mic = sr.Microphone(device_index=i, chunk_size=1024, sample_rate=48000)
+#     print(f"The index is : {i} : {mic}  : {mic_name}")
+mic = sr.Microphone(device_index = 1)
+print(mic)
+listener = sr.Recognizer()
 while True : 
     with mic as source : 
         print(f"The software is listening !")
-        audio = pi_ear.listen(source)
+        audio = listener.listen(source)
         print(audio)
-    audio = pi_ear.recognize_google(audio)
+    audio = listener.recognize_google(audio)
     print(audio)
-pi_ear = sr.Recognizer()
 # pi_mouth = GoogleTTS
 
 
