@@ -1,15 +1,44 @@
+
+import time
 import requests
+import switches as sw
 import RPi.GPIO as gp
+
 gp.setmode(gp.BOARD)
 
-gp.setup(5 , gp.OUT)
-gp.setup(3 , gp.IN)
-PIN_THREE = gp.input(3)
 
-while True :
-    command = gp.input(3)
-    if command != PIN_THREE :
-        print(f"The value of the pin 3 has changed")
-        response = requests.get('http://localhost:8080/' , params = {"command" : abs(1-command)})
-        print(response)
-        PIN_THREE = command
+gp.setup(sw.SWITCH_1, gp.IN)	# switch 1
+gp.setup(sw.SWITCH_2, gp.IN)	# switch 2
+
+gp.setup(sw.RELAY_1, gp.OUT)	# relay 1
+gp.setup(sw.RELAY_2, gp.OUT)	#relay 2
+
+def toggleRelay(switch, relay):
+    """It will simply toggle the relay on or off """
+    relay_state=gp.input(relay)
+    gp.output(relay, int(not relay_state))
+    print("off" if relay_state==1 else "on")
+#     response = requests.get('http://localhost:8080/' , params = {"relay": relay, "new_state": int(not relay_state)})
+#     print(response)
+    
+# these last states will also be fetched from db
+SWITCH_1_LAST =gp.input(sw.SWITCH_1) 
+SWITCH_2_LAST =gp.input(sw.SWITCH_2) 
+
+
+try:
+    while True : 
+        if gp.input(sw.SWITCH_1) != SWITCH_1_LAST:
+            if gp.input(sw.SWITCH_1) == 1:
+                toggleRelay(sw.SWITCH_1, sw.RELAY_1)
+            SWITCH_1_LAST = abs(1-SWITCH_1_LAST)
+        
+        if gp.input(sw.SWITCH_2) == SWITCH_2_LAST:
+            if gp.input(sw.SWITCH_2) == 1:
+                toggleRelay(sw.SWITCH_2, sw.RELAY_2)
+            SWITCH_2_LAST = abs(1-SWITCH_2_LAST)
+    
+    
+finally:
+    gp.cleanup()
+    print("CleanUp Complete")
