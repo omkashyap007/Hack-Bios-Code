@@ -11,9 +11,9 @@ def changeDeviceState(request , *args ,**kwargs):
         "errors" : None , 
         "success" : False , 
     }
-    switch = int(request.POST.get("switch"))
-    relay = int(request.POST.get("relay"))
-    print(f"Switch : {switch} , Relay : {relay} ")
+    button_number = request.POST.get("button_number")
+    state_change_value = request.POST.get("state_chanage_value")
+    
     state_changed = toggleDevice(switch , relay)
     if state_changed : 
         response["success"] = True

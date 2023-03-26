@@ -1,3 +1,6 @@
 from django.contrib import admin
+from base.models import PiGroup
 
-# Register your models here.
+@admin.register(PiGroup)
+class PiGroupAdmin(admin.ModelAdmin):
+    list_display = ["group_name"]

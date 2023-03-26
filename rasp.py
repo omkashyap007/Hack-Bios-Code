@@ -16,10 +16,11 @@ def toggleRelay(switch, relay):
     """It will simply toggle the relay on or off """
     gp.setup(relay, gp.OUT)
     relay_state=gp.input(relay)
-    gp.output(relay, int(not relay_state))
+#     gp.output(relay, int(not relay_state))
     print("off" if relay_state==1 else "on")
-#     response = requests.get('http://localhost:8080/' , params = {"relay": relay, "new_state": int(not relay_state)})
-#     print(response)
+    response = requests.get('http://localhost:8080/api/change-device-state/' ,
+        params = {"button_number" : int(relay) , "state_change_value": int(not relay_state)})
+    print(response)
     
 # these last states will also be fetched from db
 SWITCH_1_LAST =gp.input(sw.SWITCH_1) 

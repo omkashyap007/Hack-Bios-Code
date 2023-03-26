@@ -11,6 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 gp.setwarnings(False)
 gp.setmode(gp.BOARD)
 gp.setup(38 , gp.OUT)
+gp.setup(40 , gp.OUT)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-#=sgi_vuwf@(zisa4u5r8rgi!rfg#nq0i1g_8^h#@nu7ic-0$('
@@ -34,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -101,6 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = "login-user"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
