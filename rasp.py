@@ -6,15 +6,15 @@ import RPi.GPIO as gp
 
 gp.setmode(gp.BOARD)
 
-
 gp.setup(sw.SWITCH_1, gp.IN)	# switch 1
 gp.setup(sw.SWITCH_2, gp.IN)	# switch 2
+# 
+# gp.setup(sw.RELAY_1, gp.OUT)	# relay 1
 
-gp.setup(sw.RELAY_1, gp.OUT)	# relay 1
-gp.setup(sw.RELAY_2, gp.OUT)	#relay 2
 
 def toggleRelay(switch, relay):
     """It will simply toggle the relay on or off """
+    gp.setup(relay, gp.OUT)
     relay_state=gp.input(relay)
     gp.output(relay, int(not relay_state))
     print("off" if relay_state==1 else "on")

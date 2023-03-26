@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'daphne',
     'channels',
     'base.apps.BaseConfig',
+    'api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
